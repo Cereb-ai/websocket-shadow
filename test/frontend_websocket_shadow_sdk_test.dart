@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend_websocket_shadow_sdk/frontend_websocket_shadow_sdk.dart';
-import 'package:stomp_dart_client/stomp_frame.dart';
 
 void main() {
   test('test websocket', () async {
