@@ -1,4 +1,4 @@
-library frontend_websocket_shadow_sdk;
+library cereb_frontend_websocket_shadow_sdk;
 
 import 'dart:convert';
 import 'dart:developer';
@@ -48,11 +48,10 @@ class CerebWebsocketShadowSdk {
   final reconnectAttempts = 5;
   final reconnectDelay = const Duration(seconds: 5);
   bool isConnected = false;
-  StompUnsubscribe? _unsubscribeFn;
   final cerebWebsocketIdKey = "cereb-websocket-id";
   final cerebWebsocketPathKey = "cereb-websocket-path";
   // 存储每个主题的回调函数列表
-  List<Subscription> _subscriptions = [];
+  final List<Subscription> _subscriptions = [];
 
   /// A client for connecting to the Cereb Websocket Shadow SDK.<br/>
   ///  **path is topic**<br/>

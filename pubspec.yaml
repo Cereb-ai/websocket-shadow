@@ -1,7 +1,7 @@
-name: frontend_websocket_shadow_sdk
+name: cereb_frontend_websocket_shadow_sdk
 description: sdk for cereb websocket shadow
 version: 1.0.0
-homepage: "none"
+homepage: "https://platform.cereb.a"
 
 environment:
   sdk: '>=3.0.6 <4.0.0'

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:cereb_frontend_websocket_shadow_sdk/cereb_frontend_websocket_shadow_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frontend_websocket_shadow_sdk/frontend_websocket_shadow_sdk.dart';
 
 void main() {
   test('test websocket', () async {
