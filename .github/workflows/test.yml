@@ -18,10 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-       # Setup Flutter
-      - uses: subosito/flutter-action@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.6' # Specify the Flutter version or use 'stable' for the latest stable version
+          channel: stable
+          flutter-version: 3.19.0
+      - run: flutter --version
 
 
       # Setup Dart SDK (if needed separately from Flutter)
