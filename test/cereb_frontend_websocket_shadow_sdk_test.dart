@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cereb_frontend_websocket_shadow_sdk/cereb_frontend_websocket_shadow_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   test('test websocket', () async {
@@ -23,6 +24,19 @@ void main() {
         }
       },
     );
+
+    client.onConnect = (StompFrame frame) async {
+      final response = await http.get(Uri.parse(
+        'https://dev-workflow-webhook.cereb.ai/webhook/d1fe173d08e959397adf34b1d77e88d7/test',
+      ));
+
+      if (response.statusCode == 200) {
+        final data = response.body;
+        log(data);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    };
 
     final message = await completer.future;
     expect(message, isNotNull);

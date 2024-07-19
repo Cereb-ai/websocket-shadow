@@ -48,6 +48,8 @@ class CerebWebsocketShadowSdk {
   final reconnectAttempts = 5;
   final reconnectDelay = const Duration(seconds: 5);
   bool isConnected = false;
+  void Function(StompFrame)? onConnect;
+  void Function(StompFrame)? onDisconnect;
   final cerebWebsocketIdKey = "cereb-websocket-id";
   final cerebWebsocketPathKey = "cereb-websocket-path";
   // 存储每个主题的回调函数列表
@@ -155,6 +157,7 @@ class CerebWebsocketShadowSdk {
           isConnected = true;
           attempts = 0;
           _onConnect(frame);
+          onConnect?.call(frame);
         },
         beforeConnect: () async {
           log('${DateTime.now()} >>>>>> cereb websocket connecting......');
@@ -162,6 +165,7 @@ class CerebWebsocketShadowSdk {
         onDisconnect: (StompFrame stompFrame) {
           log('${DateTime.now()} >>>>>> cereb websocket disconnected......');
           isConnected = false;
+          onDisconnect?.call(stompFrame);
           if (attempts < reconnectAttempts) {
             attempts++;
             Future.delayed(reconnectDelay, () {
