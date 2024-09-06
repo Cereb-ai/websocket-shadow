@@ -11,6 +11,7 @@ jobs:
   publish:
     permissions:
       id-token: write # Required for authentication using OIDC
+      contents: read  # This is required for actions/checkout
     runs-on: ubuntu-latest
 
     steps:
@@ -24,9 +25,6 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-        env:
-          PUB_CACHE: /home/runner/.pub-cache
-          PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
 
       - name: Add pub.dev token
         run: dart pub token add https://pub.dev --env-var PUB_TOKEN
