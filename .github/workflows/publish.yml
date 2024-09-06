@@ -2,13 +2,26 @@ name: Publish to pub.dev
 
 on:
   push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+    branches:
+      - main  # 或者您希望触发发布的其他分支
 
 jobs:
   publish:
-    permissions:
-      id-token: write # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    # with:
-    #   working-directory: path/to/package/within/repository
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '2.5.3'  # 指定您使用的 Flutter 版本
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Publish to pub.dev
+      env:
+        PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
+      run: flutter pub publish --force
