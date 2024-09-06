@@ -2,8 +2,10 @@ name: Publish to pub.dev
 
 on:
   push:
+    branches:
+      - main  # 或者您希望触发发布的其他分支
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+    - 'v[0-9]+.[0-9]+.[0-9]+' # tag pattern on pub.dev: 'v{{version}}'
 
 jobs:
   publish:
@@ -11,4 +13,4 @@ jobs:
       id-token: write # Required for authentication using OIDC
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
     with:
-      working-directory: ../
+      working-directory: path/to/package/within/repository
