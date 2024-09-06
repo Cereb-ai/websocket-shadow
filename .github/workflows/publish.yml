@@ -11,13 +11,17 @@ jobs:
   publish:
     permissions:
       id-token: write # Required for authentication using OIDC
+      contents: read  # Required for actions/checkout
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
+        with:
+          sdk: stable
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -28,7 +32,7 @@ jobs:
         run: flutter pub get
 
       - name: Add pub.dev token
-        run: dart pub token add https://pub.dev --env-var PUB_TOKEN
+        run: flutter pub token add https://pub.dev --env-var PUB_TOKEN
         env:
           PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
 
