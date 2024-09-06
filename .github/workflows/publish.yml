@@ -1,27 +1,22 @@
+# .github/workflows/publish.yml
 name: Publish to pub.dev
 
 on:
   push:
-    branches:
-      - main  # 或者您希望触发发布的其他分支
+    tags:
+    # must align with the tag-pattern configured on pub.dev, often just replace
+      # {{version}} with [0-9]+.[0-9]+.[0-9]+
+    - 'v[0-9]+.[0-9]+.[0-9]+' # tag-pattern on pub.dev: 'v{{version}}'
+    # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
+    # - '[0-9]+.[0-9]+.[0-9]+' # tag-pattern on pub.dev: '{{version}}'
+    # If your repository contains multiple packages consider a pattern like:
+    # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+'
 
+# Publish using the reusable workflow from dart-lang.
 jobs:
   publish:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '2.5.3'  # 指定您使用的 Flutter 版本
-
-    - name: Install dependencies
-      run: flutter pub get
-
-    - name: Publish to pub.dev
-      env:
-        PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
-      run: flutter pub publish --force
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    # with:
+    #   working-directory: path/to/package/within/repository
