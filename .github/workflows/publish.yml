@@ -24,10 +24,5 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
 
-    - name: Authenticate with pub.dev
-      env:
-        PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
-      run: echo $PUB_DEV_TOKEN | dart pub token add https://pub.dev
-
     - name: Publish to pub.dev
       run: flutter pub publish --force
