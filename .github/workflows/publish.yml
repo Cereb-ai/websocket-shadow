@@ -18,20 +18,25 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.19.0'  # 指定您使用的 Flutter 版本
+    # - name: Set up Flutter
+    #   uses: subosito/flutter-action@v2
+    #   with:
+    #     flutter-version: '3.19.0'  # 指定您使用的 Flutter 版本
 
-    - name: Install dependencies
-      run: flutter pub get
+    # - name: Install dependencies
+    #   run: flutter pub get
 
     - name: Authenticate with pub.dev
       env:
         PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
       run: dart pub token add https://pub.dev --env-var=PUB_TOKEN
 
-    - name: Publish to pub.dev
+    - name: Debug PUB_TOKEN
+      run: echo $PUB_TOKEN
       env:
         PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
-      run: flutter pub publish --force 
+
+    # - name: Publish to pub.dev
+    #   env:
+    #     PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
+    #   run: flutter pub publish --force 
