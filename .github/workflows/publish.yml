@@ -11,27 +11,6 @@ jobs:
   publish:
     permissions:
       id-token: write # Required for authentication using OIDC
-      contents: read  # This is required for actions/checkout
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.19.0' # Specify the Flutter version you need
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Add pub.dev token
-        run: dart pub token add https://pub.dev --env-var PUB_TOKEN
-        env:
-          PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
-
-      - name: Publish to pub.dev
-        run: flutter pub publish --force
-        env:
-          PUB_TOKEN: ${{ secrets.PUB_TOKEN }}
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    # with:
+    #   working-directory: path/to/package/within/repository
