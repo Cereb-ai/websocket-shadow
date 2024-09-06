@@ -22,11 +22,6 @@ jobs:
         with:
           sdk: '3.5.2'
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.19.0' # Specify the Flutter version you need
-
       - name: Install dependencies
         run: dart pub get
         env:
