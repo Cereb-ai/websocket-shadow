@@ -1,6 +1,6 @@
 name: cereb_frontend_websocket_shadow_sdk
 description: sdk for cereb websocket shadow
-version: 1.0.3
+version: 1.0.4
 homepage: "https://github.com/Cereb-ai/websocket-shadow"
 github: "https://github.com/Cereb-ai/websocket-shadow"
 
