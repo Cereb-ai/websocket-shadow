@@ -57,3 +57,7 @@ flutter test
 # 参考项目
 
 frontend-iotena-app
+
+# 发布项目
+
+[github action](https://dart.dev/tools/pub/automated-publishing)
