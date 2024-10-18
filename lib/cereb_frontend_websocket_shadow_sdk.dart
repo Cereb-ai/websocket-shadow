@@ -42,6 +42,7 @@ class Subscription {
 /// ```
 class CerebWebsocketShadowSdk {
   late StompClient _stompClient;
+  final bool isDebug = false;
   final String _url;
   final String _id;
   final String _path;
@@ -76,10 +77,9 @@ class CerebWebsocketShadowSdk {
   /// ```
   CerebWebsocketShadowSdk({
     required String url,
-
-    /// path == topic
     required String path,
     required String id,
+    isDebug = false,
   })  : _url = url,
         _path = path,
         _id = id {
@@ -160,10 +160,14 @@ class CerebWebsocketShadowSdk {
           onConnect?.call(frame);
         },
         beforeConnect: () async {
-          log('${DateTime.now()} >>>>>> cereb websocket connecting......');
+          if (isDebug) {
+            log('${DateTime.now()} >>>>>> cereb websocket connecting......');
+          }
         },
         onDisconnect: (StompFrame stompFrame) {
-          log('${DateTime.now()} >>>>>> cereb websocket disconnected......');
+          if (isDebug) {
+            log('${DateTime.now()} >>>>>> cereb websocket disconnected......');
+          }
           isConnected = false;
           onDisconnect?.call(stompFrame);
           if (attempts < reconnectAttempts) {
@@ -174,7 +178,13 @@ class CerebWebsocketShadowSdk {
             });
           }
         },
-        onWebSocketError: (dynamic error) => log(error.toString()),
+        onWebSocketError: (dynamic error) {
+          isConnected = false;
+          if (isDebug) {
+            log('WebSocketError isConnected $isConnected');
+            log(error.toString());
+          }
+        },
         stompConnectHeaders: {
           cerebWebsocketIdKey: cerebWebsocketId,
           cerebWebsocketPathKey: cerebWebsocketPath,
