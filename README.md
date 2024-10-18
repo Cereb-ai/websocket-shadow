@@ -61,3 +61,10 @@ frontend-iotena-app
 # 发布项目
 
 [github action](https://dart.dev/tools/pub/automated-publishing)
+
+# git tag
+
+```shell
+git tag -a v1.0.2 -m "release version 1.0.2"
+git push origin v1.0.2
+```
